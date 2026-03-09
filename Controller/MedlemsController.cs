@@ -37,46 +37,46 @@ namespace Controller
             }
         }
 
-        public bool LäggTillMedlem(string namn, string telefonnummer, string email, string medlemskapsnivå, string betalningsstatus, out string fel)
+        public bool LäggTillMedlem(string namn, string telefonnummer, string email, string medlemskapsnivå, string betalningsstatus, string losenord, out string fel)
         {
-
             fel = "";
+
             if (string.IsNullOrWhiteSpace(namn))
             {
-                fel = ("Namn måste fyllas i!"); //Felhantering, namn kan ej vara tomt
+                fel = "Namn måste fyllas i!";
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(medlemskapsnivå) || medlemskapsnivå == "Välj nivå")
             {
-                fel = ("Välj medlemskapsnivå."); //Felhantering, man måste välja medlemskapsnivå
+                fel = "Välj medlemskapsnivå.";
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(betalningsstatus) || betalningsstatus == "Välj status")
             {
-                fel = ("Välj betalningsstatus."); //Felhantering, man måste välja betalstatus
+                fel = "Välj betalningsstatus.";
                 return false;
             }
 
-            string emailTrim = (email ?? "").Trim(); // Undviker null problem och tar bort mellanslag
-            if (email != null)
-            {
-                emailTrim = email.Trim();
-            }
-
+            string emailTrim = (email ?? "").Trim();
             if (emailTrim.Length > 0 && !emailTrim.Contains("@"))
             {
-                fel = ("Email måste innehålla @."); //Felhantering, email måste innehålla "@"
+                fel = "Email måste innehålla @.";
                 return false;
             }
 
             if (emailTrim.Length > 0 && _uow.MedlemRepository.FirstOrDefault(m => m.Email == emailTrim) != null)
             {
-                fel = "Email finns redan registrerad"; //Felhantering, samma email kan inte registreras två gånger
+                fel = "Email finns redan registrerad";
                 return false;
             }
 
+            if (string.IsNullOrWhiteSpace(losenord) || losenord.Length < 4)
+            {
+                fel = "Lösenordet måste vara minst 4 tecken långt.";
+                return false;
+            }
 
             var medlem = new Medlem
             {
@@ -85,13 +85,13 @@ namespace Controller
                 Email = emailTrim,
                 MedlemskapsNivå = medlemskapsnivå,
                 Betalstatus = betalningsstatus,
+                Losenord = losenord, 
+                Poäng = 0            
             };
 
-
             _uow.MedlemRepository.Add(medlem);
-            _uow.Save(); //Sparar medlem i databasen
+            _uow.Save(); 
             return true;
-
         }
     }
 }

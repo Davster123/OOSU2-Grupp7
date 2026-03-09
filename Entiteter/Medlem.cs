@@ -20,6 +20,7 @@ namespace Entiteter
         public string? Profilbild { get; set; }
 
         public string? Beskrivning { get; set; }
+        public string Losenord { get; set; }
 
         // Navigeringsegenskaper som gör det möjligt för Entity Framework att automatiskt hämta alla bokningar och betalningar som tillhör medlemmen.
         public ICollection<Bokning> Bokningar { get; set; }

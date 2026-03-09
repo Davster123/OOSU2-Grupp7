@@ -45,6 +45,7 @@
           Margin="5" Click="loggaInButton_Click"/>
 
         <Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" 
-         Source="/download.png"/>
+         Source="/download.png" />
+
     </Grid>
 </Window>
