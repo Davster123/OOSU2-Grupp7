@@ -1,0 +1,37 @@
+﻿<Window x:Class="Presentationslager_WPF_.UppdateraMedlemmar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentationslager_WPF_"
+        mc:Ignorable="d" FontSize="16" FontFamily="Lucida Bright"
+        Title="UppdateraMedlemmar" Height="550" Width="800">
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Välj Medlem att uppdatera" Margin="0,0,0,5"/>
+            <ComboBox x:Name="medlemComboBox" DisplayMemberPath="Namn" 
+               SelectionChanged="medlemComboBox_SelectionChanged" Margin="0,0,0,20"/>
+
+            <TextBlock Text="Namn:"/>
+            <TextBox x:Name="namnTextBox" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Email:"/>
+            <TextBox x:Name="emailTextBox" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Telefon:"/>
+            <TextBox x:Name="telefonTextBox" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Medlemsnivå:"/>
+            <ComboBox x:Name="nivaComboBox" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Betalstatus:"/>
+            <ComboBox x:Name="statusComboBox" Margin="0,0,0,20"/>
+
+            <Button x:Name="sparaButton" Content="Spara ändringar" Click="sparaButton_Click" 
+             Background="#FF89CE7F" Height="35" Margin="0,0,0,10"/>
+            <Button x:Name="raderaMedlemButton" Content="Radera Medlem" Background="#FFFF7F7F" Height="35" Margin="0,0,0,10" Click="raderaMedlemButton_Click"/>
+            <Button x:Name="tillbakaButton" Content="Avbryt" Click="tillbakaButton_Click" Height="35"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

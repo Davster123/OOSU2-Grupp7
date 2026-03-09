@@ -1,0 +1,52 @@
+﻿<Window x:Class="Presentationslager_WPF_.VisaMedlemsAktivitet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentationslager_WPF_"
+        mc:Ignorable="d" FontSize="16" FontFamily="Lucida Bright"
+        Title="VisaMedlemsAktivitet" Height="450" Width="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Medlemsaktivitet &amp; Historik" FontSize="28" Margin="0,0,0,20" Grid.Row="0"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Välj Medlem: " VerticalAlignment="Center"/>
+            <ComboBox x:Name="medlemComboBox" Width="250" DisplayMemberPath="Namn" 
+                    SelectionChanged="medlemComboBox_SelectionChanged" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <GroupBox Header="Bokningar" Grid.Row="2" Margin="0,0,0,10">
+            <DataGrid x:Name="bokningarDataGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat={}{0:yyyy-MM-dd}}" Width="120"/>
+                    <DataGridTextColumn Header="Start" Binding="{Binding Starttid}" Width="80"/>
+                    <DataGridTextColumn Header="Slut" Binding="{Binding Sluttid}" Width="80"/>
+                    <DataGridTextColumn Header="Resurs (ID)" Binding="{Binding ResursID}" Width="100"/>
+                    <DataGridTextColumn Header="Deltagare" Binding="{Binding Deltagare}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Header="Betalningar" Grid.Row="3" Margin="0,0,0,10">
+            <DataGrid x:Name="betalningarDataGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fakturadatum" Binding="{Binding Köpdatum, StringFormat={}{0:yyyy-MM-dd}}" Width="*"/>
+                    <DataGridTextColumn Header="Belopp" Binding="{Binding Belopp, StringFormat={}{0:C}}" Width="100"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120"/>
+                    <DataGridTextColumn Header="Betaldatum" Binding="{Binding BataldDatum, StringFormat={}{0:yyyy-MM-dd}}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <Button x:Name="tillbakaButton" Content="Tillbaka" Grid.Row="4" 
+              Width="150" HorizontalAlignment="Left" Height="40" Click="tillbakaButton_Click"/>
+    </Grid>
+</Window>

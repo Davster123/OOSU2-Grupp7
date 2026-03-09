@@ -1,0 +1,64 @@
+﻿<Window x:Class="Presentationslager_WPF_.RegisteraResursbokning"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentationslager_WPF_"
+        mc:Ignorable="d" FontSize="18" FontFamily="Lucida Bright"
+        Title="RegisteraResursbokning" Height="650" Width="810">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Registrera Ny Bokning" FontSize="30" Margin="0,0,0,20" Grid.Row="0"/>
+
+        <StackPanel Grid.Row="1" Margin="0,5">
+            <TextBlock Text="Välj Resurs:"/>
+            <ComboBox x:Name="resursComboBox" DisplayMemberPath="Namn" SelectionChanged="resursComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,5">
+            <TextBlock Text="Välj Medlem:"/>
+            <ComboBox x:Name="medlemComboBox" DisplayMemberPath="Namn"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0,5">
+            <TextBlock Text="Datum:"/>
+            <DatePicker x:Name="BokningsdatumPicker"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Margin="0,5">
+            <TextBlock Text="Starttid (HH:mm):" />
+            <TextBox x:Name="StarttidTextBox" Text="08:00"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Margin="0,5">
+            <TextBlock Text="Sluttid (HH:mm):"/>
+            <TextBox x:Name="SluttidTextBox" Text="09:00"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Margin="0,5">
+            <TextBlock Text="Välj utrustning (valfritt):"/>
+            <ComboBox x:Name="utrustningComboBox" DisplayMemberPath="ArtikelNamn"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="7" Margin="0,5">
+            <TextBlock Text="Deltagare (valfritt):"/>
+            <TextBox x:Name="deltagareTextbox" Height="25"/>
+        </StackPanel>
+
+        <UniformGrid Grid.Row="8" Columns="2" Margin="0,20,0,0" VerticalAlignment="Top">
+            <Button x:Name="registreraBokningButton" Content="Boka" Background="#FF89CE7F" Height="40" Click="registreraBokningButton_Click"/>
+            <Button x:Name="avbrytButton" Content="Avbryt" Height="40" Click="avbrytButton_Click"/>
+        </UniformGrid>
+    </Grid>
+</Window>
