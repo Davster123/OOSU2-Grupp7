@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedlemsApp.Views"
         mc:Ignorable="d"
-        Title="MedlemMainView" Height="550" Width="900"
+        Title="MedlemMainView" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen" Background="#F0F2F5">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -42,14 +42,14 @@
 
         <StackPanel Grid.Column="1" Margin="30">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Grid Width="70" Height="70" Margin="0,0,15,0">
+                <Grid Width="120" Height="120" Margin="0,0,20,0">
                     <Ellipse Fill="#E9ECEF" Stroke="#3498DB" StrokeThickness="1"/>
-                    <Ellipse Width="66" Height="66">
+                    <Ellipse Width="116" Height="116">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding InloggadMedlem.Profilbild}" Stretch="UniformToFill"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock Text="👤" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    <TextBlock Text="👤" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" 
                                Foreground="#ADB5BD">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -90,6 +90,7 @@
                     </StackPanel>
                 </Border>
             </UniformGrid>
+
             <TextBlock Text="Din Aktivitet" FontSize="20" FontWeight="Bold" Margin="5,30,0,10" Foreground="#2C3E50"/>
 
             <UniformGrid Columns="2" Height="100">
@@ -97,7 +98,7 @@
                     <StackPanel>
                         <TextBlock Text="Bokad tid totalt" Foreground="#2980B9" FontSize="12" FontWeight="Bold"/>
                         <TextBlock Text="{Binding TotalTimmar, StringFormat='{}{0:N1} timmar'}" 
-                       FontSize="26" FontWeight="Bold" Foreground="#2C3E50"/>
+                                   FontSize="26" FontWeight="Bold" Foreground="#2C3E50"/>
                     </StackPanel>
                 </Border>
 
@@ -105,7 +106,7 @@
                     <StackPanel>
                         <TextBlock Text="Mest använda typ" Foreground="#27AE60" FontSize="12" FontWeight="Bold"/>
                         <TextBlock Text="{Binding MestAnvandaResurs}" 
-                       FontSize="22" FontWeight="Bold" Foreground="#2C3E50"/>
+                                   FontSize="22" FontWeight="Bold" Foreground="#2C3E50"/>
                     </StackPanel>
                 </Border>
             </UniformGrid>

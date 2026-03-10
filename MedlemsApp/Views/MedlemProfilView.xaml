@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedlemsApp.Views"
         mc:Ignorable="d"
-        Title="MedlemProfilView" Height="650" Width="800"
+        Title="MedlemProfilView" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen" Background="#F0F2F5" ResizeMode="NoResize">
     <Grid Margin="30">
         <StackPanel>

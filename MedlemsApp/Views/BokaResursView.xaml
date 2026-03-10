@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedlemsApp.Views"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="BokaResursView" Height="600" Width="800"
+        Title="BokaResursView" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen" Background="#F4F7F6">
 
     <Grid Margin="30">
