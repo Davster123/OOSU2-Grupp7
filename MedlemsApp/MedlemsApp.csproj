@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Controller\Controller.csproj" />
     <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
+    <ProjectReference Include="..\Presentationslager(WPF)\Presentationslager(WPF).csproj" />
   </ItemGroup>
 
   <ItemGroup>

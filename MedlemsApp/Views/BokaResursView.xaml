@@ -1,0 +1,99 @@
+﻿<Window x:Class="MedlemsApp.Views.BokaResursView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedlemsApp.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="BokaResursView" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen" Background="#F4F7F6">
+
+    <Grid Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0,0,30,0">
+            <TextBlock Text="1. Välj Datum" FontSize="20" FontWeight="Bold" Margin="0,0,0,15" Foreground="#2C3E50"/>
+            <Border Background="White" CornerRadius="15" Padding="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="15" Opacity="0.1" ShadowDepth="2"/>
+                </Border.Effect>
+                <Calendar SelectedDate="{Binding Valdatum}" 
+                          DisplayDateStart="{x:Static sys:DateTime.Now}" 
+                          HorizontalAlignment="Center" BorderThickness="0"/>
+            </Border>
+        </StackPanel>
+
+        <Border Grid.Column="1" Background="White" CornerRadius="15" Padding="25">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Opacity="0.1" ShadowDepth="2"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <TextBlock Text="2. Detaljer" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Foreground="#2C3E50"/>
+
+                <TextBlock Text="Resurs (t.ex. Skrivbord 1)" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding Resurser}" 
+                          SelectedItem="{Binding ValdResurs}" 
+                          DisplayMemberPath="Typ" 
+                          Height="40" Margin="0,0,0,20" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Utrustning (t.ex. Projektor)" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding UtrustningsAlternativ}" 
+                          SelectedItem="{Binding ValdUtrustning}" 
+                          DisplayMemberPath="ArtikelNamn" 
+                          Height="40" Margin="0,0,0,20" VerticalContentAlignment="Center"/>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Start (tt:mm)" FontSize="12" Foreground="Gray"/>
+                        <TextBox Text="{Binding StartTid}" Height="35" VerticalContentAlignment="Center" Padding="5,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                        <TextBlock Text="Slut (tt:mm)" FontSize="12" Foreground="Gray"/>
+                        <TextBox Text="{Binding SlutTid}" Height="35" VerticalContentAlignment="Center" Padding="5,0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Antal pers" FontSize="12" Foreground="Gray"/>
+                        <TextBox Text="{Binding Deltagare}" Height="35" VerticalContentAlignment="Center" Padding="5,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Content="Avbryt" 
+                            Command="{Binding AvbrytCommand}"
+                            Width="100" Height="45" Background="Transparent" 
+                            Foreground="#E74C3C" BorderBrush="#E74C3C" BorderThickness="1" Margin="0,0,10,0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button Content="Boka" 
+                            Command="{Binding BokaCommand}"
+                            Width="150" Height="45" Background="#27AE60" Foreground="White" 
+                            FontWeight="Bold" BorderThickness="0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

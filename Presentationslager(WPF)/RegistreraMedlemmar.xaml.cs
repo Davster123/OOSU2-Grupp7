@@ -68,6 +68,7 @@ namespace Presentationslager_WPF_
                 email,
                 medlemskapsnivå,
                 betalstatus,
+                "1234", 
                 out string felmeddelande
                 );
 

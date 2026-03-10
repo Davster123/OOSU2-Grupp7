@@ -49,7 +49,7 @@ namespace MedlemsApp.ViewModels
 
             if (success)
             {
-                MessageBox.Show("Kontot har skapats framgångsrikt! Du kan nu logga in.", "Registrering lyckades", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Kontot har nu skapats! Du kan nu logga in.", "Registrering lyckades", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 RensaFält();
             }

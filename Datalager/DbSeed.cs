@@ -23,10 +23,10 @@ namespace Datalager
             _db.Personaler.Add(new Personal { Namn = "Markus Svensson", Roll = "Systemansvarig", Losenord = "Sys@456" });
 
             // MEDLEMMAR
-            _db.Medlemmar.Add(new Medlem { Namn = "Anna Andersson", Telefonnummer = "0701234567", Email = "anna@email.se", MedlemskapsNivå = "Fast", Betalstatus = "Betald", Poäng = 150 });
-            _db.Medlemmar.Add(new Medlem { Namn = "Erik Eriksson", Telefonnummer = "0739876543", Email = "erik@email.se", MedlemskapsNivå = "Flex", Betalstatus = "Obetald", Poäng = 0 });
-            _db.Medlemmar.Add(new Medlem { Namn = "Lisa Svensson", Telefonnummer = "0725558899", Email = "lisa@email.se", MedlemskapsNivå = "Fast", Betalstatus = "Betald" });
-            _db.Medlemmar.Add(new Medlem { Namn = "Oskar Nilsson", Telefonnummer = "0761122334", Email = "oskar@email.se", MedlemskapsNivå = "Företag", Betalstatus = "Betald" });
+            _db.Medlemmar.Add(new Medlem { Namn = "Anna Andersson", Telefonnummer = "0701234567", Email = "anna@email.se", MedlemskapsNivå = "Fast", Betalstatus = "Betald", Poäng = 150, Losenord = "Anna123" });
+            _db.Medlemmar.Add(new Medlem { Namn = "Erik Eriksson", Telefonnummer = "0739876543", Email = "erik@email.se", MedlemskapsNivå = "Flex", Betalstatus = "Obetald", Poäng = 0, Losenord = "Erik123" });
+            _db.Medlemmar.Add(new Medlem { Namn = "Lisa Svensson", Telefonnummer = "0725558899", Email = "lisa@email.se", MedlemskapsNivå = "Fast", Betalstatus = "Betald", Poäng = 15, Losenord = "Lisa123" });
+            _db.Medlemmar.Add(new Medlem { Namn = "Oskar Nilsson", Telefonnummer = "0761122334", Email = "oskar@email.se", MedlemskapsNivå = "Företag", Betalstatus = "Betald", Poäng = 50, Losenord = "Oskar123" });
 
             // RESURSER
             _db.Resurser.Add(new Resurs { Namn = "A01", Typ = "Mötesrum", Kapacitet = 10, Status = "Tillgänglig", Beskrivning = "Rymligt mötesrum, perfekt för styrelsemöten." });

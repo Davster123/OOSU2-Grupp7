@@ -24,13 +24,15 @@ namespace MedlemsApp.ViewModels
         [RelayCommand]
         private void Login()
         {
-            // Vi hämtas medlemmen baserat på e-post
-            var medlem = _uow.MedlemRepository.FirstOrDefault(m => m.Email == Email);
-
+            var medlem = _uow.MedlemRepository.FirstOrDefault(m => m.Email == Email && m.Losenord == Password);
 
             if (medlem != null)
             {
-                MessageBox.Show($"Välkommen {medlem.Namn}!");
+                var mainView = new Views.MedlemMainView();
+                mainView.DataContext = new MedlemMainViewModel(medlem);
+                mainView.Show();
+
+                Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is Views.LoginView)?.Close();
             }
             else
             {
