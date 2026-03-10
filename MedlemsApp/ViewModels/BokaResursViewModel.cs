@@ -25,7 +25,7 @@ namespace MedlemsApp.ViewModels
         [ObservableProperty] private DateTime _valdatum = DateTime.Now;
         [ObservableProperty] private string _startTid = "08:00";
         [ObservableProperty] private string _slutTid = "17:00";
-        [ObservableProperty] private string _deltagare = "1";
+        [ObservableProperty] private string _deltagare = "1";      
 
         public BokaResursViewModel(Medlem medlem)
         {
