@@ -17,7 +17,7 @@ namespace Entiteter
 
         public int Poäng { get; set; }
 
-        public string? Profilbild { get; set; }
+        public byte[]? Profilbild { get; set; }
 
         public string? Beskrivning { get; set; }
         public string Losenord { get; set; }

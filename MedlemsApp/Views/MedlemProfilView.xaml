@@ -7,55 +7,61 @@
         mc:Ignorable="d"
         Title="MedlemProfilView" Height="650" Width="800"
         WindowStartupLocation="CenterScreen" Background="#F0F2F5" ResizeMode="NoResize">
-    <Grid>
-        <Border Height="120" VerticalAlignment="Top" Background="#2C3E50">
-            <TextBlock Text="Inställningar" Foreground="White" FontSize="26" 
-                       FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Border>
+    <Grid Margin="30">
+        <StackPanel>
+            <Grid HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Ellipse Width="120" Height="120" Fill="#E9ECEF" Stroke="#3498DB" StrokeThickness="2"/>
+                <Ellipse Width="120" Height="120">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding InloggadMedlem.Profilbild}" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
 
-        <Border Margin="30,80,30,20" Background="White" CornerRadius="15">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="15" Direction="270" Opacity="0.1" ShadowDepth="2"/>
-            </Border.Effect>
+                <Button Command="{Binding BytBildCommand}" Content="📷" 
+                        Width="35" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Background="#3498DB" Foreground="White" BorderThickness="0" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="18"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
 
-            <StackPanel Margin="25">
-                <Grid HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <Ellipse Width="100" Height="100" Fill="#E9ECEF" Stroke="#DEE2E6" StrokeThickness="2"/>
-                    <TextBlock Text="👤" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#ADB5BD"/>
-                    <Button Command="{Binding BytBildCommand}" Content="📷" Width="30" Height="30" 
-                            VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                            Background="#3498DB" Foreground="White" BorderThickness="0">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="15"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                </Grid>
+            <TextBlock Text="Kontaktuppgifter" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
 
-                <TextBlock Text="{Binding InloggadMedlem.Namn}" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-                <TextBlock Text="{Binding InloggadMedlem.MedlemskapsNivå, StringFormat='Nivå: {0}'}" Foreground="#6C757D" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+            <TextBlock Text="E-post" FontSize="12" Foreground="Gray"/>
+            <TextBox Text="{Binding Email}" Height="35" Margin="0,5,0,15" VerticalContentAlignment="Center" Padding="5,0"/>
 
-                <Separator Margin="0,0,0,20" Background="#F1F3F5"/>
+            <TextBlock Text="Telefon" FontSize="12" Foreground="Gray"/>
+            <TextBox Text="{Binding Telefon}" Height="35" Margin="0,5,0,15" VerticalContentAlignment="Center" Padding="5,0"/>
 
-                <TextBlock Text="E-post" FontSize="12" FontWeight="Bold" Foreground="#495057" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Email}" Height="35" Margin="0,0,0,15" Padding="10,5" VerticalContentAlignment="Center" BorderBrush="#DEE2E6"/>
+            <TextBlock Text="Nytt Lösenord" FontSize="12" Foreground="Gray"/>
+            <TextBox Text="{Binding NyttLosenord}" Height="35" Margin="0,5,0,25" VerticalContentAlignment="Center" Padding="5,0"/>
 
-                <TextBlock Text="Telefonnummer" FontSize="12" FontWeight="Bold" Foreground="#495057" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Telefon}" Height="35" Margin="0,0,0,15" Padding="10,5" VerticalContentAlignment="Center" BorderBrush="#DEE2E6"/>
-
-                <TextBlock Text="Nytt Lösenord (lämna tomt för att behålla nuvarande)" FontSize="12" FontWeight="Bold" Foreground="#495057" Margin="0,0,0,5"/>
-                <PasswordBox Height="35" Margin="0,0,0,30" Padding="10,5" VerticalContentAlignment="Center" BorderBrush="#DEE2E6"/>
-
-                <Button Content="Spara ändringar" Command="{Binding SparaCommand}" 
-                        Height="45" Background="#27AE60" Foreground="White" FontSize="16" FontWeight="Bold" BorderThickness="0">
+            <UniformGrid Columns="2" Margin="0,10,0,0">
+                <Button Content="Spara" 
+            Command="{Binding SparaCommand}" 
+            Height="40" Margin="0,0,5,0"
+            Background="#27AE60" Foreground="White" FontWeight="Bold" BorderThickness="0">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-            </StackPanel>
-        </Border>
+
+                <Button Content="Tillbaka" 
+            Command="{Binding TillbakaCommand}" 
+            Height="40" Margin="5,0,0,0"
+            Background="Transparent" Foreground="#7F8C8D" BorderBrush="#95A5A6" BorderThickness="1">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </UniformGrid>
+        </StackPanel>
     </Grid>
 </Window>

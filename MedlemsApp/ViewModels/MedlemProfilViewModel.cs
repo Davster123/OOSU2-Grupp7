@@ -2,12 +2,14 @@
 using CommunityToolkit.Mvvm.Input;
 using Datalager;
 using Entiteter;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace MedlemsApp.ViewModels
 {
@@ -30,8 +32,17 @@ namespace MedlemsApp.ViewModels
         [RelayCommand]
         private void BytBild()
         {
-            // Här kan ni implementera Microsoft.Win32.OpenFileDialog för att välja bild
-            MessageBox.Show("Här öppnas filväljaren för att välja en ny profilbild!");
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Fixar CS0029 genom att använda byte[] (kräver ändring i Medlem.cs)
+                byte[] bildBytes = File.ReadAllBytes(openFileDialog.FileName);
+                InloggadMedlem.Profilbild = bildBytes;
+
+                OnPropertyChanged(nameof(InloggadMedlem));
+            }
         }
 
         [RelayCommand]
@@ -48,8 +59,22 @@ namespace MedlemsApp.ViewModels
                 _uow.MedlemRepository.Update(InloggadMedlem);
                 _uow.Save();
                 MessageBox.Show("Profilen har uppdaterats!");
+                StängFönster();
             }
-            catch (System.Exception ex) { MessageBox.Show("Fel: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Fel: " + ex.Message); }
+        }
+
+        // NYTT: Kommando för Tillbaka-knappen
+        [RelayCommand]
+        private void Tillbaka()
+        {
+            StängFönster();
+        }
+
+        private void StängFönster()
+        {
+            foreach (Window w in Application.Current.Windows)
+                if (w.DataContext == this) w.Close();
         }
     }
 }

@@ -60,5 +60,17 @@ namespace Datalager
         {
             return _dbSet.Count();
         }
+        public IEnumerable<T> GetAllWithIncludes(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _dbSet;
+
+            // Går igenom alla tabeller vi vill "inkludera" i sökningen
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToList();
+        }
     }
 }

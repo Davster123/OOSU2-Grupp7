@@ -21,12 +21,38 @@ namespace MedlemsApp.ViewModels
         }
 
         [RelayCommand]
+        private void VisaProfil()
+        {
+            var profilView = new Views.MedlemProfilView();
+            profilView.DataContext = new MedlemProfilViewModel(InloggadMedlem);
+            profilView.ShowDialog();
+
+            // Tvinga UI att uppdatera bindingen ifall profilbild eller namn har ändrats
+            OnPropertyChanged(nameof(InloggadMedlem));
+        }
+
+        [RelayCommand]
+        private void VisaBokning()
+        {
+            var bokaView = new Views.BokaResursView();
+            bokaView.DataContext = new BokaResursViewModel(InloggadMedlem);
+            bokaView.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void VisaHistorik()
+        {
+            var historikView = new Views.BokningsHistorikView();
+            historikView.DataContext = new BokningsHistorikViewModel(InloggadMedlem);
+            historikView.ShowDialog();
+        }
+
+        [RelayCommand]
         private void LoggaUt()
         {
             MainWindow startFönster = new MainWindow();
             startFönster.Show();
 
-            // Stäng nuvarande fönster
             foreach (Window window in Application.Current.Windows)
             {
                 if (window is Views.MedlemMainView)
@@ -36,24 +62,5 @@ namespace MedlemsApp.ViewModels
                 }
             }
         }
-
-        [RelayCommand]
-        private void VisaProfil()
-        {
-            var profilView = new Views.MedlemProfilView();
-            profilView.DataContext = new MedlemProfilViewModel(InloggadMedlem);
-            profilView.ShowDialog();
-        }
-
-        // Öppnar bokningsfönstret
-        [RelayCommand]
-        private void VisaBokning()
-        {
-            var bokaView = new Views.BokaResursView();
-            bokaView.DataContext = new BokaResursViewModel(InloggadMedlem);
-            bokaView.ShowDialog();
-        }
-
-
     }
 }
