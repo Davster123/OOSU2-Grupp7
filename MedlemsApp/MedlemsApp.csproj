@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+    <Page Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
@@ -16,10 +23,6 @@
     <ProjectReference Include="..\Controller\Controller.csproj" />
     <ProjectReference Include="..\Entiteter\Entiteter.csproj" />
     <ProjectReference Include="..\Presentationslager(WPF)\Presentationslager(WPF).csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

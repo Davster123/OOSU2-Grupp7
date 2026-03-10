@@ -90,6 +90,25 @@
                     </StackPanel>
                 </Border>
             </UniformGrid>
+            <TextBlock Text="Din Aktivitet" FontSize="20" FontWeight="Bold" Margin="5,30,0,10" Foreground="#2C3E50"/>
+
+            <UniformGrid Columns="2" Height="100">
+                <Border Background="#E8F4FD" CornerRadius="10" Margin="5" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="Bokad tid totalt" Foreground="#2980B9" FontSize="12" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding TotalTimmar, StringFormat='{}{0:N1} timmar'}" 
+                       FontSize="26" FontWeight="Bold" Foreground="#2C3E50"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="#E8F8F2" CornerRadius="10" Margin="5" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="Mest använda typ" Foreground="#27AE60" FontSize="12" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding MestAnvandaResurs}" 
+                       FontSize="22" FontWeight="Bold" Foreground="#2C3E50"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
         </StackPanel>
     </Grid>
 </Window>

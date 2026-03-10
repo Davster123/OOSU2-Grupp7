@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Datalager;
 using Entiteter;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,49 @@ namespace MedlemsApp.ViewModels
 {
     public partial class MedlemMainViewModel : ObservableObject
     {
+        private readonly UnitOfWork _uow = new UnitOfWork();
+
         [ObservableProperty]
         private Medlem _inloggadMedlem;
+
+        // Nya egenskaper för statistiken
+        [ObservableProperty]
+        private double _totalTimmar;
+
+        [ObservableProperty]
+        private string _mestAnvandaResurs;
 
         public MedlemMainViewModel(Medlem medlem)
         {
             _inloggadMedlem = medlem;
+            BeräknaStatistik();
+        }
+
+        private void BeräknaStatistik()
+        {
+            // Hämtar alla bokningar för den inloggade medlemmen och inkluderar Resurs-datan
+            var minaBokningar = _uow.BokningRepository
+                .GetAllWithIncludes(b => b.Resurs)
+                .Where(b => b.MedlemID == InloggadMedlem.MedlemID)
+                .ToList();
+
+            if (minaBokningar.Any())
+            {
+                // 1. Beräkna totalt antal timmar
+                TotalTimmar = minaBokningar.Sum(b => (b.Sluttid - b.Starttid).TotalHours);
+
+                // 2. Hitta den mest använda resurstypen
+                MestAnvandaResurs = minaBokningar
+                    .GroupBy(b => b.Resurs.Typ)
+                    .OrderByDescending(g => g.Count())
+                    .Select(g => g.Key)
+                    .FirstOrDefault() ?? "Ingen data";
+            }
+            else
+            {
+                TotalTimmar = 0;
+                MestAnvandaResurs = "Inga bokningar än";
+            }
         }
 
         [RelayCommand]
