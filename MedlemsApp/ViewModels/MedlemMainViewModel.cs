@@ -111,5 +111,13 @@ namespace MedlemsApp.ViewModels
                 }
             }
         }
+
+        [RelayCommand]
+        private void VisaCommunity()
+        {
+            var communityView = new Views.CommunityView();
+            communityView.DataContext = new CommunityViewModel(InloggadMedlem);
+            communityView.ShowDialog();
+        }
     }
 }

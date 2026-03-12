@@ -21,13 +21,9 @@
                            HorizontalAlignment="Center"
                            Margin="0,20,0,40"/>
 
-                <Button Content="🏠 Översikt"
-                        Command="{Binding VisaOversiktCommand}"
-                        Margin="0,5"
-                        Height="40"
-                        Background="#34495E"
-                        Foreground="White"
-                        BorderThickness="0"/>
+                <Button Content="🌐 Community" Command="{Binding VisaCommunityCommand}"
+                        Margin="0,5" Height="40" Background="#34495E" Foreground="White"
+                        BorderThickness="0" Cursor="Hand" FontWeight="SemiBold"/>
 
                 <Button Content="📅 Boka Resurs"
                         Command="{Binding VisaBokningCommand}"
