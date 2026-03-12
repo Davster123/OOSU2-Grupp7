@@ -58,10 +58,13 @@ namespace MedlemsApp.ViewModels
         }
 
         [RelayCommand]
-
         private void Boka()
         {
-            if (ValdResurs == null) { MessageBox.Show("Välj en resurs!"); return; }
+            if (ValdResurs == null)
+            {
+                MessageBox.Show("Välj en resurs!");
+                return;
+            }
 
             try
             {
@@ -70,19 +73,30 @@ namespace MedlemsApp.ViewModels
                     MedlemID = _inloggadMedlem.MedlemID,
                     ResursID = ValdResurs.ResursID,
                     UtrustningID = ValdUtrustning?.UtrustningID,
-                    Deltagare = Deltagare, // Sparar texten från den nya stora rutan
+                    Deltagare = Deltagare,
                     Datum = Valdatum,
                     Starttid = TimeSpan.Parse(StartTid),
                     Sluttid = TimeSpan.Parse(SlutTid)
                 };
 
+                // Lägg till bokning
                 _uow.BokningRepository.Add(nyBokning);
+
+                // Ge medlemmen 10 poäng
+                _inloggadMedlem.Poäng += 10;
+                _uow.MedlemRepository.Update(_inloggadMedlem);
+
+                // Spara allt
                 _uow.Save();
 
-                MessageBox.Show("Bokningen är registrerad med dina anteckningar!");
+                MessageBox.Show("Bokningen är registrerad!");
+
                 StängFönster();
             }
-            catch (Exception ex) { MessageBox.Show("Fel: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fel: " + ex.Message);
+            }
         }
 
         [RelayCommand]

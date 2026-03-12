@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MedlemsApp.ViewModels
@@ -17,27 +15,70 @@ namespace MedlemsApp.ViewModels
         private readonly UnitOfWork _uow = new UnitOfWork();
         private readonly Medlem _inloggadMedlem;
 
+        private List<Bokning> _allaBokningar;
+
         [ObservableProperty]
         private ObservableCollection<Bokning> _minaBokningar;
 
         [ObservableProperty]
         private Bokning _valdBokning;
 
+        [ObservableProperty]
+        private List<string> _resursTyper;
+
+        [ObservableProperty]
+        private string _valdResursTyp;
+
         public BokningsHistorikViewModel(Medlem medlem)
         {
             _inloggadMedlem = medlem;
+
+            ResursTyper = new List<string>
+            {
+                "Alla",
+                "Mötesrum",
+                "Datorsal",
+                "Konferenssal"
+               
+            };
+
             LaddaBokningar();
+
+            ValdResursTyp = "Alla";
+
+            
         }
 
         private void LaddaBokningar()
         {
-            // Vi hämtar alla bokningar och tvingar EF att även hämta Resurs-objektet
             var allaBokningar = _uow.BokningRepository.GetAllWithIncludes(b => b.Resurs);
 
-            // Filtrera så vi bara ser den inloggade medlemmens bokningar
-            var filtrerade = allaBokningar.Where(b => b.MedlemID == _inloggadMedlem.MedlemID).ToList();
+            _allaBokningar = allaBokningar
+                .Where(b => b.MedlemID == _inloggadMedlem.MedlemID)
+                .ToList();
 
-            MinaBokningar = new ObservableCollection<Bokning>(filtrerade);
+            MinaBokningar = new ObservableCollection<Bokning>(_allaBokningar);
+        }
+
+        partial void OnValdResursTypChanged(string value)
+        {
+            FiltreraBokningar();
+        }
+
+        private void FiltreraBokningar()
+        {
+            if (ValdResursTyp == "Alla")
+            {
+                MinaBokningar = new ObservableCollection<Bokning>(_allaBokningar);
+            }
+            else
+            {
+                var filtrerade = _allaBokningar
+                    .Where(b => b.Resurs != null && b.Resurs.Typ == ValdResursTyp)
+                    .ToList();
+
+                MinaBokningar = new ObservableCollection<Bokning>(filtrerade);
+            }
         }
 
         [RelayCommand]
@@ -45,14 +86,20 @@ namespace MedlemsApp.ViewModels
         {
             if (ValdBokning == null) return;
 
-            var svar = MessageBox.Show($"Är du säker på att du vill avboka {ValdBokning.Resurs?.Namn}?",
-                "Bekräfta avbokning", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var svar = MessageBox.Show(
+                $"Är du säker på att du vill avboka {ValdBokning.Resurs?.Namn}?",
+                "Bekräfta avbokning",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
             if (svar == MessageBoxResult.Yes)
             {
                 _uow.BokningRepository.Remove(ValdBokning);
                 _uow.Save();
+
                 MinaBokningar.Remove(ValdBokning);
+                _allaBokningar.Remove(ValdBokning);
+
                 MessageBox.Show("Bokningen är nu borttagen.");
             }
         }
@@ -62,21 +109,21 @@ namespace MedlemsApp.ViewModels
         {
             if (ValdBokning == null) return;
 
-            // Här återanvänder vi BokaResursView men skickar in den valda bokningen för redigering
-            // För enkelhetens skull i detta exempel öppnar vi bokningsfönstret:
             var editView = new Views.BokaResursView();
-            // Man kan utöka BokaResursViewModel för att ta emot en befintlig bokning
+
             editView.DataContext = new BokaResursViewModel(_inloggadMedlem);
+
             editView.ShowDialog();
 
-            LaddaBokningar(); // Uppdatera listan efteråt
+            LaddaBokningar();
         }
 
         [RelayCommand]
         private void Tillbaka()
         {
             foreach (Window w in Application.Current.Windows)
-                if (w.DataContext == this) w.Close();
+                if (w.DataContext == this)
+                    w.Close();
         }
     }
 }

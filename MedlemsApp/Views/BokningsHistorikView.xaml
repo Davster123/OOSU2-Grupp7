@@ -7,44 +7,115 @@
         mc:Ignorable="d"
         Title="BokningsHistorikView" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen" Background="#F4F7F6">
+
     <Grid Margin="20">
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Min Bokningshistorik" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" Foreground="#2C3E50"/>
+        <!-- Rubrik -->
+        <TextBlock Text="Min Bokningshistorik"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"
+                   Foreground="#2C3E50"/>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding MinaBokningar}" 
+        <!-- Filtrering -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15">
+
+            <TextBlock Text="Filtrera på resurstyp:"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"
+                       FontWeight="SemiBold"/>
+
+            <ComboBox Width="220"
+                      ItemsSource="{Binding ResursTyper}"
+                      SelectedItem="{Binding ValdResursTyp}"
+                      Background="White"/>
+        </StackPanel>
+
+        <!-- Tabell -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding MinaBokningar}"
                   SelectedItem="{Binding ValdBokning}"
-                  AutoGenerateColumns="False" IsReadOnly="True" 
-                  Background="White" RowHeight="40" SelectionMode="Single"
-                  BorderThickness="0" CanUserAddRows="False">
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Background="White"
+                  RowHeight="40"
+                  SelectionMode="Single"
+                  BorderThickness="0"
+                  CanUserAddRows="False">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=\{0:yyyy-MM-dd\}}" Width="100"/>
-                <DataGridTextColumn Header="Resurs" Binding="{Binding Resurs.Typ}" Width="*"/>
-                <DataGridTextColumn Header="Tid" Width="150">
+
+                <DataGridTextColumn Header="Datum"
+                                    Binding="{Binding Datum, StringFormat=\{0:yyyy-MM-dd\}}"
+                                    Width="120"/>
+
+                <DataGridTextColumn Header="Resurs"
+                                    Binding="{Binding Resurs.Typ}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Tid"
+                                    Width="160">
+
                     <DataGridTextColumn.Binding>
+
                         <MultiBinding StringFormat="{}{0:hh\:mm} - {1:hh\:mm}">
                             <Binding Path="Starttid"/>
                             <Binding Path="Sluttid"/>
                         </MultiBinding>
+
                     </DataGridTextColumn.Binding>
+
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Anteckningar" Binding="{Binding Deltagare}" Width="*" />
+
+                <DataGridTextColumn Header="Anteckningar"
+                                    Binding="{Binding Deltagare}"
+                                    Width="*"/>
+
             </DataGrid.Columns>
+
         </DataGrid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button Content="Ändra tid" Command="{Binding ÄndraBokningCommand}" 
-                    Width="120" Height="40" Background="#3498DB" Foreground="White" Margin="0,0,10,0"/>
+        <!-- Knappar -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
 
-            <Button Content="Avboka" Command="{Binding AvbokaCommand}" 
-                    Width="120" Height="40" Background="#E74C3C" Foreground="White" Margin="0,0,10,0"/>
+            <Button Content="Ändra tid"
+                    Command="{Binding ÄndraBokningCommand}"
+                    Width="120"
+                    Height="40"
+                    Background="#3498DB"
+                    Foreground="White"
+                    Margin="0,0,10,0"/>
 
-            <Button Content="Tillbaka" Command="{Binding TillbakaCommand}" 
-                    Width="120" Height="40" Background="Transparent" Foreground="#7F8C8D" BorderBrush="#95A5A6" BorderThickness="1"/>
+            <Button Content="Avboka"
+                    Command="{Binding AvbokaCommand}"
+                    Width="120"
+                    Height="40"
+                    Background="#E74C3C"
+                    Foreground="White"
+                    Margin="0,0,10,0"/>
+
+            <Button Content="Tillbaka"
+                    Command="{Binding TillbakaCommand}"
+                    Width="120"
+                    Height="40"
+                    Background="Transparent"
+                    Foreground="#7F8C8D"
+                    BorderBrush="#95A5A6"
+                    BorderThickness="1"/>
+
         </StackPanel>
+
     </Grid>
 </Window>

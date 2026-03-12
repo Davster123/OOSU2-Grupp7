@@ -2,11 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Datalager;
 using Entiteter;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MedlemsApp.ViewModels
@@ -18,12 +14,24 @@ namespace MedlemsApp.ViewModels
         [ObservableProperty]
         private Medlem _inloggadMedlem;
 
-        // Nya egenskaper för statistiken
         [ObservableProperty]
         private double _totalTimmar;
 
         [ObservableProperty]
         private string _mestAnvandaResurs;
+
+        public string RabattInfo
+        {
+            get
+            {
+                int kvar = 100 - InloggadMedlem.Poäng;
+
+                if (kvar <= 0)
+                    return "Du har uppnått 15% rabatt i receptionen!";
+
+                return $"Du har {kvar} poäng kvar till 15% rabatt.";
+            }
+        }
 
         public MedlemMainViewModel(Medlem medlem)
         {
@@ -33,7 +41,6 @@ namespace MedlemsApp.ViewModels
 
         private void BeräknaStatistik()
         {
-            // Hämtar alla bokningar för den inloggade medlemmen och inkluderar Resurs-datan
             var minaBokningar = _uow.BokningRepository
                 .GetAllWithIncludes(b => b.Resurs)
                 .Where(b => b.MedlemID == InloggadMedlem.MedlemID)
@@ -41,10 +48,8 @@ namespace MedlemsApp.ViewModels
 
             if (minaBokningar.Any())
             {
-                // 1. Beräkna totalt antal timmar
                 TotalTimmar = minaBokningar.Sum(b => (b.Sluttid - b.Starttid).TotalHours);
 
-                // 2. Hitta den mest använda resurstypen
                 MestAnvandaResurs = minaBokningar
                     .GroupBy(b => b.Resurs.Typ)
                     .OrderByDescending(g => g.Count())
@@ -65,8 +70,8 @@ namespace MedlemsApp.ViewModels
             profilView.DataContext = new MedlemProfilViewModel(InloggadMedlem);
             profilView.ShowDialog();
 
-            // Tvinga UI att uppdatera bindingen ifall profilbild eller namn har ändrats
             OnPropertyChanged(nameof(InloggadMedlem));
+            OnPropertyChanged(nameof(RabattInfo));
         }
 
         [RelayCommand]
@@ -75,6 +80,9 @@ namespace MedlemsApp.ViewModels
             var bokaView = new Views.BokaResursView();
             bokaView.DataContext = new BokaResursViewModel(InloggadMedlem);
             bokaView.ShowDialog();
+
+            OnPropertyChanged(nameof(InloggadMedlem));
+            OnPropertyChanged(nameof(RabattInfo));
         }
 
         [RelayCommand]
@@ -83,6 +91,9 @@ namespace MedlemsApp.ViewModels
             var historikView = new Views.BokningsHistorikView();
             historikView.DataContext = new BokningsHistorikViewModel(InloggadMedlem);
             historikView.ShowDialog();
+
+            OnPropertyChanged(nameof(InloggadMedlem));
+            OnPropertyChanged(nameof(RabattInfo));
         }
 
         [RelayCommand]
