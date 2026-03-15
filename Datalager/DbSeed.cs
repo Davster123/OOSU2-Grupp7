@@ -10,10 +10,10 @@ namespace Datalager
 {
     public static class DbSeed
     {
-        public static void Populate(OOPSU2DbContext _db)
+        public static void Populate(OOPSU2DbContext _db) //tar emot en databascontext och får tillgång till databasen
         {
-            if (_db.Betalningar.Any())
-                return;
+            if (_db.Betalningar.Any()) //kollar omd et finns betalningar i databasen
+                return; //ber om att returnera 
 
 
             // PERSONAL
