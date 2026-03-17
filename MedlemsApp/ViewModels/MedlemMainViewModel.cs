@@ -81,6 +81,8 @@ namespace MedlemsApp.ViewModels
             bokaView.DataContext = new BokaResursViewModel(InloggadMedlem);
             bokaView.ShowDialog();
 
+            BeräknaStatistik();   // 
+
             OnPropertyChanged(nameof(InloggadMedlem));
             OnPropertyChanged(nameof(RabattInfo));
         }
@@ -91,6 +93,8 @@ namespace MedlemsApp.ViewModels
             var historikView = new Views.BokningsHistorikView();
             historikView.DataContext = new BokningsHistorikViewModel(InloggadMedlem);
             historikView.ShowDialog();
+
+            BeräknaStatistik();
 
             OnPropertyChanged(nameof(InloggadMedlem));
             OnPropertyChanged(nameof(RabattInfo));

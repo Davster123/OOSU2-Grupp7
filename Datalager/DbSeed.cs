@@ -13,7 +13,7 @@ namespace Datalager
         public static void Populate(OOPSU2DbContext _db) //tar emot en databascontext och får tillgång till databasen
         {
             if (_db.Betalningar.Any()) //kollar omd et finns betalningar i databasen
-                return; //ber om att returnera 
+                return; //ber om att returnera om det finns befintliga betalningar
 
 
             // PERSONAL
@@ -35,7 +35,7 @@ namespace Datalager
 
             _db.SaveChanges();
 
-            //Vi har hådkodat dessa nedanför för att kunna koppla dem till specifika utrustningar/bokningar/betalningar
+            //Vi har hårdkodat dessa nedanför för att kunna koppla dem till specifika utrustningar/bokningar/betalningar
 
             Medlem anna = _db.Medlemmar.First(m => m.Namn == "Anna Andersson");
             Medlem erik = _db.Medlemmar.First(m => m.Namn == "Erik Eriksson");

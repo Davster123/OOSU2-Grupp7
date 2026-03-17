@@ -12,7 +12,7 @@ namespace Controller
     {
         private readonly UnitOfWork _uow; // Gör så att controllern kan jobba mot databasen
 
-        public BetalningsController(UnitOfWork uow)
+        public BetalningsController(UnitOfWork uow)  // Tar emot ett UnitOfWork-objekt och sparar det så controllern kan använda databasen
         {
             _uow = uow;
         }
