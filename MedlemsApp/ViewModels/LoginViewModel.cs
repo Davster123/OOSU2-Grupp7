@@ -21,7 +21,7 @@ namespace MedlemsApp.ViewModels
         {
             _uow = new UnitOfWork();
         }
-
+      
         [RelayCommand]
         private void Login(object parameter)
         {
@@ -46,6 +46,7 @@ namespace MedlemsApp.ViewModels
             }
         }
 
+        //Tillbaka till huvudfönstret
         [RelayCommand]
         private void Tillbaka()
         {

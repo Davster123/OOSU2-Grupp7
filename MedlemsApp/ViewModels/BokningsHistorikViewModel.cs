@@ -48,7 +48,7 @@ namespace MedlemsApp.ViewModels
 
             
         }
-
+        //laddar alla bokningar
         private void LaddaBokningar()
         {
             var allaBokningar = _uow.BokningRepository.GetAllWithIncludes(b => b.Resurs);
@@ -65,6 +65,7 @@ namespace MedlemsApp.ViewModels
             FiltreraBokningar();
         }
 
+        //filtrerar bland bokningarna beroende på vilken typ du väljer
         private void FiltreraBokningar()
         {
             if (ValdResursTyp == "Alla")
