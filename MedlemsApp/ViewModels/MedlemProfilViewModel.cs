@@ -64,7 +64,7 @@ namespace MedlemsApp.ViewModels
             catch (Exception ex) { MessageBox.Show("Fel: " + ex.Message); }
         }
 
-        // NYTT: Kommando för Tillbaka-knappen
+        //Kommando för Tillbaka-knappen
         [RelayCommand]
         private void Tillbaka()
         {
