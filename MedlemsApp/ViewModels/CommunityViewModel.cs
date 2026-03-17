@@ -22,6 +22,7 @@ namespace MedlemsApp.ViewModels
             LaddaMedlemmar();
         }
 
+        //laddar alla medlemmar
         private void LaddaMedlemmar()
         {
             var allaMedlemmar = _uow.MedlemRepository

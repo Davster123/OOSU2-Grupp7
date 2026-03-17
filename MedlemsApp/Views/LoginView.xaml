@@ -19,17 +19,15 @@
                      Height="35" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
 
             <TextBlock Text="Lösenord:" Margin="0,0,0,5"/>
-            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" 
-                     Height="35" VerticalContentAlignment="Center" Margin="0,0,0,25"/>
+            <PasswordBox x:Name="PasswordInput" 
+             Height="35" 
+             VerticalContentAlignment="Center" 
+             Margin="0,0,0,25"/>
 
             <Button Content="Logga in" 
-                    Command="{Binding LoginCommand}" 
-                    Height="45" Background="#007ACC" Foreground="White" FontWeight="Bold">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
+            Command="{Binding LoginCommand}" 
+            CommandParameter="{Binding ElementName=PasswordInput}"
+            Height="45" Background="#007ACC" Foreground="White" FontWeight="Bold">
             </Button>
 
             <Button Content="Avbryt" 

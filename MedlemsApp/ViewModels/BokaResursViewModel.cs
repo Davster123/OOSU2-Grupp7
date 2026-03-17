@@ -42,11 +42,10 @@ namespace MedlemsApp.ViewModels
             var tillgängliga = _resursController.HämtaTillgängligaResurser();
             Resurser = new ObservableCollection<Resurs>(tillgängliga ?? new System.Collections.Generic.List<Resurs>());
 
-            // Starta med tom utrustningslista tills en resurs väljs
+            // Startar med tom utrustningslista tills en resurs väljs
             UtrustningsAlternativ = new ObservableCollection<Utrustning>();
         }
 
-        // Denna metod körs automatiskt av CommunityToolkit när ValdResurs ändras
         partial void OnValdResursChanged(Resurs value)
         {
             if (value != null)

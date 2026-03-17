@@ -24,13 +24,10 @@ namespace MedlemsApp.ViewModels
             registerView.Show();
             StängMainWindow();
         }
-
-        // Öppnar personalens inloggningsfönster (från ert andra projekt)
+       
         [RelayCommand]
         private void VisaPersonalLogin()
-        {
-            // Kontrollera att namespacet stämmer med er gamla MainWindow-fil
-            // Här antar vi att den heter MainWindow och ligger i Presentationslager_WPF_
+        {          
             Presentationslager_WPF_.MainWindow personalFönster = new Presentationslager_WPF_.MainWindow();
             personalFönster.Show();
             StängMainWindow();
