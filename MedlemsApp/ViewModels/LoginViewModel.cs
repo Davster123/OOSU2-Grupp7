@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Controller;
 using Datalager;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MedlemsApp.ViewModels
 {
@@ -22,8 +23,13 @@ namespace MedlemsApp.ViewModels
         }
 
         [RelayCommand]
-        private void Login()
+        private void Login(object parameter)
         {
+            if (parameter is PasswordBox passwordBox)
+            {
+                Password = passwordBox.Password;
+            }
+
             var medlem = _uow.MedlemRepository.FirstOrDefault(m => m.Email == Email && m.Losenord == Password);
 
             if (medlem != null)
