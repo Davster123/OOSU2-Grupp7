@@ -75,15 +75,25 @@ namespace MedlemsApp.ViewModels
                     Deltagare = Deltagare,
                     Datum = Valdatum,
                     Starttid = TimeSpan.Parse(StartTid),
-                    Sluttid = TimeSpan.Parse(SlutTid)
+                    Sluttid = TimeSpan.Parse(SlutTid),
+                    Resurs = null,
+                    Medlem = null,
+                    Utrustning = null
                 };
 
                 // Lägg till bokning
                 _uow.BokningRepository.Add(nyBokning);
 
-                // Ge medlemmen 10 poäng
-                _inloggadMedlem.Poäng += 10;
-                _uow.MedlemRepository.Update(_inloggadMedlem);
+                // Hämta medlemmen från samma context innan uppdatering
+                var medlem = _uow.MedlemRepository.FirstOrDefault(m => m.MedlemID == _inloggadMedlem.MedlemID);
+                if (medlem != null)
+                {
+                    medlem.Poäng += 10;
+                    _uow.MedlemRepository.Update(medlem);
+
+                    // uppdatera även objektet som visas i UI
+                    _inloggadMedlem.Poäng = medlem.Poäng;
+                }
 
                 // Spara allt
                 _uow.Save();
